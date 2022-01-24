@@ -8,65 +8,488 @@ date: "2021-12-01"
 updated: "2022-01-13"
 ---
 
-### Mint tokens
+# TokenModule Code Examples
 
-```ts
-const token = sdk.getTokenModule("<MODULE_ADDRESS>");
-const amount = ethers.utils.parseUnits("1000", 18);
+Don’t forget to replace `<TOKEN_CONTRACT_ADDRESS>`, `<OWNER_ADDRESS>`, `<SPENDER_ADDRESS>` and `<SPENDER_ADDRESS_2>` with your own values. 
 
-const mintTokens = async () => {
-  try {
-    await token.mint(amount);
-    console.log("Minted 1000 coins");
-  } catch (err) {
-    console.log(err);
-  }
-};
+### allowance(spender)
 
-mintTokens();
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const allowance = (spender:string) => {  
+    token.allowance(spender)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get the allowance for specified address
+allowance("<SPENDER_ADDRESS>");
 ```
 
-### Mint tokens for another wallet
+### allowanceOf(owner, spender)
 
-Tokens will be minted and send to the `<TARGET_ADDRESS`.
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
 
-```ts
-const token = sdk.getTokenModule("<MODULE_ADDRESS>");
-const amount = ethers.utils.parseUnits("1000", 18);
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
 
-const mintTokensTo = async () => {
-  try {
-    await token.mintTo("<TARGET_ADDRESS>", amount);
-  } catch (err) {
-    console.log(err);
-  }
-};
+const allowanceOf = (owner:string, spender:string) => {  
+    token.allowanceOf(owner, spender)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
 
-mintTokensTo();
+allowanceOf("<OWNER_ADDRESS>", "<SPENDER_ADDRESS>");
 ```
 
-### Batch mint tokens for other wallets
+### balance()
 
-```ts
-const token = sdk.getTokenModule("<MODULE_ADDRESS>");
-const amount = ethers.utils.parseUnits("1000", 18);
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
 
-const mintBatchTokensTo = async () => {
-  try {
-    await token.mintBatchTo([
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const balance = () => {  
+    token.balance()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get your balance
+balance();
+```
+
+### balanceOf(address)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const balanceOf = (address: string) => {  
+    token.balanceOf(address)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get the balance of the specified address
+balanceOf("<SPENDER_ADDRESS>");
+```
+
+### burn(amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const burn = (amount: BigNumberish) => {  
+    token.burn(amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// burn 1 from the supply from the owner
+burn(ethers.utils.parseEther("1"));
+```
+
+### burnFrom(from, amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const burnFrom = (from: string, amount: BigNumberish) => {  
+    token.burnFrom(from, amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// burn 1 from the specified address
+burnFrom("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### get()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const get = () => {  
+    token.get()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get details about the token module 
+get();
+```
+
+### getAllHolderBalances()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getAllHolderBalances = () => {  
+    token.getAllHolderBalances()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+  
+getAllHolderBalances();
+```
+
+### getDelegation()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getDelegation = () => {  
+    token.getDelegation()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+
+getDelegation();
+```
+
+### getDelegationOf(account)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getDelegationOf = (account: string) => {  
+    token.getDelegationOf(account)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+  
+getDelegationOf("<SPENDER_ADDRESS>");
+```
+
+### getValue()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getValue = (value: BigNumberish) => {  
+    token.getValue(value)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get value for the specified amount, in this case 1 ether 
+getValue(ethers.utils.parseEther("1"));
+```
+
+### getVoteBalance()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getVoteBalance = () => {  
+    token.getVoteBalance()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get information about the votebalance for yourself
+getVoteBalance();
+```
+
+### getVoteBalanceOf(account)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getVoteBalanceOf = (account: string) => {  
+    token.getVoteBalanceOf(account)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get information about the votebalance for the specified address
+getVoteBalanceOf("<SPENDER_ADDRESS>");
+```
+
+### isTransferRestricted()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const isTransferRestricted = () => {  
+    token.isTransferRestricted()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get information about the transfer settings in the token module 
+isTransferRestricted();
+```
+
+### mint(amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const mint = (amount: BigNumberish) => {  
+    token.mint(amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// mint an specific amount, in this example only 1 ether
+mint(ethers.utils.parseEther("1"));
+```
+
+### mintBatchTo(args)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const mintBatchTo = () => {  
+    token.mintBatchTo([
+        {
+            address: "<SPENDER_ADDRESS>",
+            amount: ethers.utils.parseEther("1")
+        },
+        {
+            address: "<SPENDER_ADDRESS_2>",
+            amount: ethers.utils.parseEther("5")
+        }
+    ])
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// mint different amounts to different addresses with one call
+mintBatchTo();
+```
+
+### mintTo(to, amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const mintTo = (to: string, amount: BigNumberish) => {  
+    token.mintTo(to, amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// mint a specified amount to a specific address
+mintTo("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### setAllowance(spender, amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const setAllowance = (spender: string, amount: BigNumber) => {  
+    token.setAllowance(spender, amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// set an allowance amount to a specified address
+setAllowance("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### setModuleMetadata(metadata)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const setModuleMetadata = (metadata: MetadataURIOrObject) => {  
+  token.setModuleMetadata(metadata)
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
+};
+
+//set Module metadata, success will return a transactionReceipt
+setModuleMetadata("<METADATA_URI_OR_OBJECT>");
+```
+
+### setRestrictedTransfer(restricted)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const setRestrictedTransfer = (restricted?: boolean) => {  
+    token.setRestrictedTransfer(restricted)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// set true/false for the transfer settings for the token module 
+setRestrictedTransfer(true);
+```
+
+### totalSupply()
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const totalSupply = () => {  
+    token.totalSupply()
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// get information about the total supply of the token module
+totalSupply();
+```
+
+### transfer(to, amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transfer = (to: string, amount: BigNumberish) => {  
+    token.transfer(to, amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// transfer a specified amount to a specific address  
+transfer("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### transferBatch(args)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transferBatch = () => {  
+    token.transferBatch([
+        {
+            address: "<SPENDER_ADDRESS>",
+            amount: ethers.utils.parseEther("2")
+        },
+        {
+            address: "<SPENDER_ADDRESS_2>",
+            amount: ethers.utils.parseEt("1")
+        }
+    ])
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// transfer different amounts to different addresses with one call  
+transferBatch();
+```
+
+### transferFrom(from, to, amount)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transferFrom = (from: string, to: string, amount: BigNumberish) => {  
+    token.transferFrom(from, to, amount)
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+// transfer a specified amount from a specific address to another  
+transferFrom("<SPENDER_ADDRESS>", "<SPENDER_ADDRESS_2>", ethers.utils.parseEther("1"));
+```
+
+### transferFromBatch(args)
+
+```tsx
+// Set variable for the token module contract address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_CONTRACT_ADDRESS";
+
+// Initialize the token module with the contract address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transferFromBatch = () => {  
+  token.transferFromBatch([
       {
-        address: "<TARGET_ADDRESS_1>",
-        amount
+          address: "<TO_ADDRESS>",
+          amount: ethers.utils.parseEther("1"),
+          fromAddress: "<FROM_ADDRESS>"
       },
       {
-        address: "<TARGET_ADDRESS_2>",
-        amount
+          address: "<TO_ADDRESS>",
+          amount: ethers.utils.parseEther("1"),
+          fromAddress: "<FROM_ADDRESS>"
       }
-    ]);
-  } catch (err) {
-    console.log(err);
-  }
+  ])
+    .then((data) => console.log(data))
+    .catch((error) => console.error(error));
 };
 
-mintBatchTokensTo();
+// transfer different amounts FROM different addresses  
+// TO different addresses with one call  
+transferFromBatch();
 ```
