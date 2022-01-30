@@ -8,67 +8,540 @@ date: "2021-12-01"
 updated: "2022-01-13"
 ---
 
-### Mint tokens
+# TokenModule Code Examples
 
-```ts
-const token = sdk.getTokenModule("<MODULE_ADDRESS>");
-const amount = ethers.utils.parseUnits("1000", 18);
+Don’t forget to replace `<TOKEN_MODULE_ADDRESS>`, `<OWNER_ADDRESS>`, `<SPENDER_ADDRESS>` and `<SPENDER_ADDRESS_2>` with your own values. 
 
-const mintTokens = async () => {
+### allowance(spender)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const allowance = async (spender:string) => { 
   try {
+    await token.allowance(spender);
+  } catch (error) {
+    console.log('Failed to check allowance. Error: ', error);
+  }
+};
+// get the allowance for specified address
+allowance("<SPENDER_ADDRESS>");
+```
+
+### allowanceOf(owner, spender)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const allowanceOf = async (owner:string, spender:string) => {
+  try {
+    await token.allowanceOf(owner, spender);
+  } catch (error) {
+    console.log('Failed to check allowance of. Error: ', error);
+  }
+};
+
+allowanceOf("<OWNER_ADDRESS>", "<SPENDER_ADDRESS>");
+```
+
+### balance()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const balance = async () => {
+  try {
+    await token.balance();
+  } catch (error) {
+    console.log('Failed to check balance. Error: ', error);
+  }
+};
+// get your balance
+balance();
+```
+
+### balanceOf(address)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const balanceOf = async (address: string) => {
+  try {
+    await token.balanceOf(address);
+  } catch (error) {
+    console.log('Failed to check balance of. Error: ', error);
+  }
+};
+// get the balance of the specified address
+balanceOf("<SPENDER_ADDRESS>");
+```
+
+### burn(amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const burn = async (amount: BigNumberish) => {
+  try {
+    await token.burn(amount);
+  } catch (error) {
+    console.log('Failed to burn. Error: ', error);
+  } 
+};
+// burn 1 from the supply from the owner
+burn(ethers.utils.parseEther("1"));
+```
+
+### burnFrom(from, amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const burnFrom = async (from: string, amount: BigNumberish) => {
+  try {
+    await token.burnFrom(from, amount);
+  } catch (error) {
+    console.log('Failed to burn from. Error: ', error);
+  }
+};
+// burn 1 from the specified address
+burnFrom("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### get()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const get = async () => {
+  try {
+    await token.get();
+  } catch (error) {
+    console.log('Failed to get. Error: ', error);
+  }
+};
+// get details about the token module 
+get();
+```
+
+### getAllHolderBalances()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getAllHolderBalances = async () => {
+  try {
+    await token.getAllHolderBalances();  
+  } catch (error) {
+    console.log('Failed to get all holder balances. Error: ', error);
+  }
+};
+  
+getAllHolderBalances();
+```
+
+### getDelegation()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getDelegation = async () => {  
+  try {
+    await token.getDelegation();
+  } catch (error) {
+    console.log('Failed to get delegation. Error: ', error);
+  }
+};
+
+getDelegation();
+```
+
+### getDelegationOf(account)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getDelegationOf = async (account: string) => {  
+  try {
+    await token.getDelegationOf(account)
+  } catch (error) {
+    console.log('Failed to get delegation of. Error: ', error);
+  }
+  };
+  
+getDelegationOf("<SPENDER_ADDRESS>");
+```
+
+### getValue()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getValue = async (value: BigNumberish) => {
+  try {
+    await token.getValue(value);
+  } catch (error) {
+    console.log('Failed to get value. Error: ', error);
+  }
+};
+// get value for the specified amount, in this case 1 ether 
+getValue(ethers.utils.parseEther("1"));
+```
+
+### getVoteBalance()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getVoteBalance = async () => {
+  try {
+    await token.getVoteBalance();
+  } catch (error) {
+    console.log('Failed to get vote balance. Error: ', error);
+  }
+};
+// get information about the votebalance for yourself
+getVoteBalance();
+```
+
+### getVoteBalanceOf(account)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const getVoteBalanceOf = async (account: string) => {  
+  try {
+    await token.getVoteBalanceOf(account);
+  } catch (error) {
+    console.log('Failed to get vote balance of. Error: ', error);
+  }
+};
+// get information about the votebalance for the specified address
+getVoteBalanceOf("<SPENDER_ADDRESS>");
+```
+
+### isTransferRestricted()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const isTransferRestricted = async () => {  
+  try {
+    await token.isTransferRestricted();
+  } catch (error) {
+    console.log('Failed to check is transfer restricted. Error: ', error);
+  }
+};
+// get information about the transfer settings in the token module 
+isTransferRestricted();
+```
+
+### mint(amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const mint = async (amount: BigNumberish) => { 
+  try { 
     await token.mint(amount);
-    console.log("Minted 1000 coins");
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log('Failed to mint. Error: ', error);
   }
 };
-
-mintTokens();
+// mint an specific amount, in this example only 1 ether
+mint(ethers.utils.parseEther("1"));
 ```
 
-### Mint tokens for another wallet
+### mintBatchTo(args)
 
-Tokens will be minted and send to the `<TARGET_ADDRESS`.
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
 
-```ts
-const token = sdk.getTokenModule("<MODULE_ADDRESS>");
-const amount = ethers.utils.parseUnits("1000", 18);
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
 
-const mintTokensTo = async () => {
-  try {
-    await token.mintTo("<TARGET_ADDRESS>", amount);
-  } catch (err) {
-    console.log(err);
-  }
-};
-
-mintTokensTo();
-```
-
-### Batch mint tokens for other wallets
-
-```ts
-const token = sdk.getTokenModule("<MODULE_ADDRESS>");
-const amount = ethers.utils.parseUnits("1000", 18);
-
-const mintBatchTokensTo = async () => {
-  try {
+const mintBatchTo = async () => { 
+  try { 
     await token.mintBatchTo([
+        {
+            address: "<SPENDER_ADDRESS>",
+            amount: ethers.utils.parseEther("1")
+        },
+        {
+            address: "<SPENDER_ADDRESS_2>",
+            amount: ethers.utils.parseEther("5")
+        }
+    ]);
+  } catch (error) {
+    console.log('Failed to mint batch to. Error: ', error);
+  }
+  };
+// mint different amounts to different addresses with one call
+mintBatchTo();
+```
+
+### mintTo(to, amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const mintTo = async (to: string, amount: BigNumberish) => {  
+  try { 
+    await token.mintTo(to, amount);
+  } catch (error) {
+    console.log('Failed to mint to. Error: ', error);
+  }
+};
+// mint a specified amount to a specific address
+mintTo("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### setAllowance(spender, amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const setAllowance = async (spender: string, amount: BigNumber) => {  
+  try {
+    await token.setAllowance(spender, amount);
+  } catch (error) {
+    console.log('Failed to set allowance. Error: ', error);
+  }
+};
+// set an allowance amount to a specified address
+setAllowance("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### setModuleMetadata(metadata)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const setModuleMetadata = async (metadata: MetadataURIOrObject) => {
+  try {  
+    await token.setModuleMetadata(metadata);
+  } catch (error) {
+    console.log('Failed to set module metadata. Error: ', error);
+  }
+};
+
+//set Module metadata, success will return a transactionReceipt
+setModuleMetadata("<METADATA_URI_OR_OBJECT>");
+```
+
+### setRestrictedTransfer(restricted)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const setRestrictedTransfer = async (restricted?: boolean) => { 
+  try { 
+    await token.setRestrictedTransfer(restricted);
+  } catch (error) {
+    console.log('Failed to set restricted transfer. Error: ', error);
+  }
+};
+// set true/false for the transfer settings for the token module 
+setRestrictedTransfer(true);
+```
+
+### totalSupply()
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const totalSupply = async () => {  
+  try {
+    await token.totalSupply();
+  } catch (error) {
+    console.log('Failed to get total supply. Error: ', error);
+  }
+};
+// get information about the total supply of the token module
+totalSupply();
+```
+
+### transfer(to, amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transfer = async (to: string, amount: BigNumberish) => {  
+  try {
+    await token.transfer(to, amount);
+  } catch (error) {
+    console.log('Failed to transfer. Error: ', error);
+  }
+};
+// transfer a specified amount to a specific address  
+transfer("<SPENDER_ADDRESS>", ethers.utils.parseEther("1"));
+```
+
+### transferBatch(args)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transferBatch = async () => {  
+  try {
+    await token.transferBatch([
+        {
+            address: "<SPENDER_ADDRESS>",
+            amount: ethers.utils.parseEther("2")
+        },
+        {
+            address: "<SPENDER_ADDRESS_2>",
+            amount: ethers.utils.parseEt("1")
+        }
+    ]);
+  } catch (error) {
+    console.log('Failed to transfer batch. Error: ', error);
+  }
+};
+// transfer different amounts to different addresses with one call  
+transferBatch();
+```
+
+### transferFrom(from, to, amount)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transferFrom = async (from: string, to: string, amount: BigNumberish) => { 
+  try { 
+    await token.transferFrom(from, to, amount);
+  } catch (error) {
+    console.log('Failed to transfer from. Error: ', error);
+  }
+};
+// transfer a specified amount from a specific address to another  
+transferFrom("<SPENDER_ADDRESS>", "<SPENDER_ADDRESS_2>", ethers.utils.parseEther("1"));
+```
+
+### transferFromBatch(args)
+
+```tsx
+// Set variable for the token module address which can be found after creating a token module in the dashboard
+const tokenAddress = "<TOKEN_MODULE_ADDRESS";
+
+// Initialize the token module with the module address
+const token = sdk.getTokenModule(tokenAddress);
+
+const transferFromBatch = async () => {  
+  try {
+    await token.transferFromBatch([
       {
-        address: "<TARGET_ADDRESS_1>",
-        amount
+          address: "<TO_ADDRESS>",
+          amount: ethers.utils.parseEther("1"),
+          fromAddress: "<FROM_ADDRESS>"
       },
       {
-        address: "<TARGET_ADDRESS_2>",
-        amount
+          address: "<TO_ADDRESS>",
+          amount: ethers.utils.parseEther("1"),
+          fromAddress: "<FROM_ADDRESS>"
       }
     ]);
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log('Failed to trasnfer from batch. Error: ', error);
   }
 };
 
-mintBatchTokensTo();
+// transfer different amounts FROM different addresses  
+// TO different addresses with one call  
+transferFromBatch();
 ```
 
 <MdxNavigation>
@@ -81,4 +554,3 @@ mintBatchTokensTo();
     title="Marketplace"
     next
   />
-</MdxNavigation>
